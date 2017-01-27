@@ -99,6 +99,9 @@ public class RotCheckBox {
                     if(deg>=360) {
                         deg = 360;
                         scale = 1;
+                        if(rotCheckBoxListener != null) {
+                            rotCheckBoxListener.onComplete();
+                        }
                     }
                     isAnimated = false;
                 }
