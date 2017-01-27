@@ -59,7 +59,7 @@ public class RotCheckBox {
     }
     private class RotCheckBoxView extends View{
         private boolean isAnimated = false;
-        private float deg = 0,scale = 0,speedDeg = 36,speedScale = 0.1f,dir = -1;
+        private float deg = 0,scale = 0,speedDeg = 72,speedScale = 0.2f,dir = -1;
         private int font = 15,time = 0;
         private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         public RotCheckBoxView(Context context) {
