@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.anwesome.camera.rotcheckbox.RotCheckBox;
+import com.anwesome.camera.rotcheckbox.RotCheckBoxGroup;
 import com.anwesome.camera.rotcheckbox.RotCheckBoxListener;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
         });
         rotCheckBox.show(100,100);
         rotCheckBox2.show(300,300);
+        RotCheckBoxGroup rotCheckBoxGroup = new RotCheckBoxGroup(this);
+        rotCheckBoxGroup.addRotCheckBox("Red");
+        rotCheckBoxGroup.addRotCheckBox("Green");
+        rotCheckBoxGroup.addRotCheckBox("Blue");
+        rotCheckBoxGroup.show(500);
 
     }
 }
