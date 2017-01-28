@@ -31,11 +31,16 @@ public class MainActivity extends AppCompatActivity {
         });
         rotCheckBox.show(100,100);
         rotCheckBox2.show(300,300);
-        RotCheckBoxGroup rotCheckBoxGroup = new RotCheckBoxGroup(this);
+        final RotCheckBoxGroup rotCheckBoxGroup = new RotCheckBoxGroup(this);
         rotCheckBoxGroup.addRotCheckBox("Red");
         rotCheckBoxGroup.addRotCheckBox("Green");
         rotCheckBoxGroup.addRotCheckBox("Blue");
         rotCheckBoxGroup.show(500);
-
+        rotCheckBoxGroup.setRotCheckBoxListener(new RotCheckBoxListener() {
+            @Override
+            public void onComplete() {
+                Toast.makeText(MainActivity.this,rotCheckBoxGroup.getValue(),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
