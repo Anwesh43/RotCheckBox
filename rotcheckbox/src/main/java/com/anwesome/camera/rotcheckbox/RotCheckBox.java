@@ -23,12 +23,42 @@ public class RotCheckBox {
     private Activity activity;
     private RotCheckBoxListener rotCheckBoxListener;
     private RotCheckBoxView rotCheckBoxView;
+    private RotCheckBoxGroup group;
+    private int groupIndex = -1;
+    public void unselectCheckBox() {
+        rotCheckBoxView.unselect();
+    }
+    public String getText() {
+        return text;
+    }
+    public void setGroup(RotCheckBoxGroup rotCheckBoxGroup) {
+        this.group = rotCheckBoxGroup;
+    }
     public RotCheckBox(Activity activity,String text) {
         this.activity = activity;
         this.text = text;
     }
+    public RotCheckBox(String text) {
+        this.text = text;
+    }
     public void setRotCheckBoxListener(RotCheckBoxListener rotCheckBoxListener) {
         this.rotCheckBoxListener = rotCheckBoxListener;
+    }
+    public void setGroupIndex(int index) {
+        this.groupIndex = index;
+    }
+    public int hashCode() {
+        return text.hashCode()+(rotCheckBoxView!=null?rotCheckBoxView.hashCode():0);
+    }
+    public void createView(ViewGroup viewGroup,int dimen) {
+        rotCheckBoxView = new RotCheckBoxView(viewGroup.getContext());
+        if(viewGroup!=null) {
+            viewGroup.addView(rotCheckBoxView,new ViewGroup.LayoutParams(5*dimen/2,dimen));
+        }
+
+    }
+    public RotCheckBoxView getRotCheckBoxView() {
+        return rotCheckBoxView;
     }
     public void show(int... coords) {
         if(activity!=null && rotCheckBoxView==null) {
@@ -92,7 +122,7 @@ public class RotCheckBox {
                 deg+=speedDeg*dir;
                 scale+=speedScale*dir;
                 if(deg >= 360 || deg<=0) {
-                    if(deg<0) {
+                    if(deg<=0) {
                         deg = 0;
                         scale = 0;
                     }
@@ -120,10 +150,20 @@ public class RotCheckBox {
                 setProperFont(w);
             }
         }
+        public void unselect() {
+            if(dir == 1 && !isAnimated) {
+                dir = -1;
+                isAnimated = true;
+                invalidate();
+            }
+        }
         public boolean onTouchEvent(MotionEvent event) {
             if(event.getAction() == MotionEvent.ACTION_DOWN && !isAnimated) {
                 dir*=-1;
                 isAnimated = true;
+                if(group!=null && scale == 0) {
+                    group.selectCheckBox(groupIndex);
+                }
                 postInvalidate();
             }
             return true;
