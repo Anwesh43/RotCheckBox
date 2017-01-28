@@ -20,6 +20,19 @@ public class RotCheckBoxGroup{
     private String value;
     private int selectedIndex = -1;
     private Activity activity;
+    private RotCheckBoxListener rotCheckBoxListener;
+
+    public RotCheckBoxListener getRotCheckBoxListener() {
+        return rotCheckBoxListener;
+    }
+
+    public void setRotCheckBoxListener(RotCheckBoxListener rotCheckBoxListener) {
+        this.rotCheckBoxListener = rotCheckBoxListener;
+        for(RotCheckBox rotCheckBox:rotCheckBoxes) {
+            rotCheckBox.setRotCheckBoxListener(rotCheckBoxListener);
+        }
+    }
+
     public RotCheckBoxGroup(Activity activity) {
         this.activity = activity;
     }
@@ -46,6 +59,9 @@ public class RotCheckBoxGroup{
         RotCheckBox rotCheckBox = new RotCheckBox(text);
         rotCheckBox.setGroupIndex(rotCheckBoxes.size());
         rotCheckBox.setGroup(this);
+        if(rotCheckBoxListener!=null) {
+            rotCheckBox.setRotCheckBoxListener(rotCheckBoxListener);
+        }
         rotCheckBoxes.add(rotCheckBox);
     }
     private class RotCheckBoxViewGroup extends ViewGroup {
